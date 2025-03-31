@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_PRODUTOS 100
+
+
+typedef struct {
+    char nome[50];
+    int quantidade;
+} Produto;
+
+
+void adicionarNoFinal(Produto lista[], int *n, const char *nome, int quantidade) {
+    strcpy(lista[*n].nome, nome);
+    lista[*n].quantidade = quantidade;
+    (*n)++;
+}
+
+void adicionarNoInicio(Produto lista[], int *n, const char *nome, int quantidade) {
+    for (int i = *n; i > 0; i--) {
+        lista[i] = lista[i - 1];
+    }
+    strcpy(lista[0].nome, nome);
+    lista[0].quantidade = quantidade;
+    (*n)++;
+}
+
+
+void imprimirLista(Produto lista[], int n) {
+    printf("Lista de compras:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Produto: %s, Quantidade: %d\n", lista[i].nome, lista[i].quantidade);
+    }
+}
+
+int main() {
+    Produto listaDeCompras[MAX_PRODUTOS];
+    int n = 0; 
+
+
+    printf("------------------------------------------------------------\n");
+    
+    adicionarNoFinal(listaDeCompras, &n, "tapioca", 8);
+    adicionarNoInicio(listaDeCompras, &n, "frango", 7);
+    adicionarNoFinal(listaDeCompras, &n, "Tomate", 4);
+
+    imprimirLista(listaDeCompras, n);
+
+    printf("------------------------------------------------------------\n");
+
+    return 0;
+}
